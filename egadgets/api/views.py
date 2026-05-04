@@ -139,3 +139,9 @@ class ReviewViewSet(ModelViewSet):
     def destroy(self,request,pk=0):
         return Response(data={"msg":"Not Allowd"},status=status.HTTP_406_NOT_ACCEPTABLE)
     
+    @action(methods=["PATCH"],detail=True)
+    def cancellorder(self,request,pk=0):
+        order=self.get_object()
+        order.status="Cancelled"
+        order.save()
+        return Response(data={"msg":"Order Cancelled"},status=status.HTTP_200_OK)
